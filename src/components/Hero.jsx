@@ -12,7 +12,7 @@ export default function WaveBackground() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight break-words">
             Split Smarter,
             <br className="hidden md:block" />
-            <span className="text-[#1F8225]"> Spend Together</span>
+            <span className="text-[#1F8225]"> Spend Together ....</span>
           </h1>
 
           <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed tracking-wide break-words max-w-md mx-auto md:mx-0 px-2 sm:px-0">

@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import NavbarLogo from "../../assets/logo.svg";
 import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [menu, setMenu] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   const navItems = [
-    { title: "Home", to: "/" },
-    { title: "How It Works", to: "/works" },
-    { title: "Features", to: "/features" },
-    { title: "Community", to: "/community" },
+    { title: "Home", to: "home" },
+    { title: "How It Works", to: "works" },
+    { title: "Features", to: "features" },
+    { title: "Community", to: "community" },
   ];
 
   const toggleMenu = () => setMenu((prev) => !prev);
@@ -23,23 +24,39 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
-  // Add background shadow when scrolled
+  // Navbar scroll shadow
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = menu ? "hidden" : "auto";
+  }, [menu]);
+
+  // Smooth scroll to section
+  const handleNavClick = (id) => {
+    setMenu(false);
+    if (location.pathname !== "/") {
+      window.location.href = `/#${id}`;
+    } else {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full z-[9999] transition-all duration-300 ${
         isScrolled ? "bg-[#F7F5F9]/95 shadow-md backdrop-blur-sm" : "bg-[#F7F5F9]"
       }`}
     >
-      {/* ===== Navbar Container ===== */}
-      <div className="max-w-screen-xl mx-auto w-full flex items-center justify-between px-4 md:px-6 py-3">
+      {/* Navbar Container */}
+      <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 md:px-6 py-3">
         {/* Logo */}
         <Link
           to="/"
@@ -54,18 +71,15 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav
-          className="hidden md:flex items-center gap-8 lg:gap-12 mx-8"
-          aria-label="Primary"
-        >
+        <nav className="hidden md:flex items-center gap-8 lg:gap-12 mx-8">
           {navItems.map((item) => (
-            <Link
+            <button
               key={item.to}
-              to={item.to}
+              onClick={() => handleNavClick(item.to)}
               className="text-gray-700 hover:text-[#1f8225] transition-colors text-[16px] font-medium whitespace-nowrap"
             >
               {item.title}
-            </Link>
+            </button>
           ))}
         </nav>
 
@@ -91,7 +105,7 @@ export default function Navbar() {
           aria-label={menu ? "Close menu" : "Open menu"}
           className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
         >
-          {menu ? <X size={24} /> : <Menu size={24} />}
+          {menu ? <X size={26} /> : <Menu size={26} />}
         </button>
       </div>
 
@@ -105,12 +119,11 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <aside
-        className={`fixed top-0 right-0 z-50 h-full bg-white shadow-xl transform transition-transform duration-300 ease-out ${
+        className={`fixed top-0 right-0 z-[10000] h-full bg-white shadow-xl transform transition-transform duration-300 ease-out ${
           menu ? "translate-x-0" : "translate-x-full"
-        } w-[70vw] max-w-[360px] md:hidden rounded-l-2xl overflow-y-auto`}
-        role="dialog"
-        aria-modal="true"
+        } w-[75vw] max-w-[360px] md:hidden rounded-l-2xl overflow-y-auto`}
       >
+        {/* Drawer Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b">
           <h3 className="text-lg font-semibold text-gray-800">Menu</h3>
           <button
@@ -122,17 +135,17 @@ export default function Navbar() {
           </button>
         </div>
 
+        {/* Drawer Nav */}
         <nav className="px-5 py-6">
           <ul className="flex flex-col gap-4">
             {navItems.map((item) => (
               <li key={item.to}>
-                <Link
-                  to={item.to}
-                  onClick={() => setMenu(false)}
-                  className="block text-gray-800 hover:text-[#1f8225] transition-colors text-lg font-medium py-3 px-3 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300"
+                <button
+                  onClick={() => handleNavClick(item.to)}
+                  className="block w-full text-left text-gray-800 hover:text-[#1f8225] transition-colors text-lg font-medium py-3 px-3 rounded-lg"
                 >
                   {item.title}
-                </Link>
+                </button>
               </li>
             ))}
           </ul>
@@ -141,21 +154,19 @@ export default function Navbar() {
           <div className="mt-6 flex flex-col gap-3 px-3">
             <Link
               to="/signup"
-              onClick={() => setMenu(false)}
               className="w-full px-4 py-3 rounded-lg border-2 border-green-600 bg-white text-green-600 hover:bg-green-50 transition-colors font-medium text-center"
             >
               SIGN UP
             </Link>
             <Link
               to="/login"
-              onClick={() => setMenu(false)}
               className="w-full px-4 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white transition-colors font-medium text-center"
             >
               LOG IN
             </Link>
           </div>
 
-          <div className="mt-8 px-3 text-sm text-gray-500">
+          <div className="mt-8 px-3 text-sm text-gray-500 text-center">
             <p>© {new Date().getFullYear()} CoSplitz</p>
           </div>
         </nav>

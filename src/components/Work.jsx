@@ -7,7 +7,7 @@ import work3 from "../assets/work3.svg";
 
 export default function Work() {
   return (
-    <section className="w-full flex flex-col justify-center items-center bg-[#F7F5F9] py-16 px-4 md:px-10">
+    <section id="work" className="w-full flex flex-col justify-center items-center bg-[#F7F5F9] py-16 px-4 md:px-10">
       {/* Header */}
       <h2 className="text-3xl md:text-4xl font-extrabold text-center underline decoration-black mb-12">
         How It Works

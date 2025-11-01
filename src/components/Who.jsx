@@ -8,13 +8,13 @@ export default function WhoSection() {
       <div className="max-w-7xl w-full flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16 py-20 px-6 md:px-12 lg:px-20">
         {/* ===== Left Section ===== */}
         <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left">
-          <h2 className="text-3xl md:text-4xl lg:text-4xl font-extrabold text-gray-900 mb-6 underline underline-offset-8 decoration-[#000000]">
+          <h2 className="text-4xl md:text-5xl lg:text-4xl font-extrabold text-gray-900 mb-6 underline underline-offset-8 decoration-[#000000]">
             Who Can Use CoSplitz?
           </h2>
 
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+          <p className="text-2xl md:text-3xl text-gray-700 leading-relaxed mb-8">
             From students and travelers to families and small business owners,{" "}
-            <span className="font-semibold text-[#0ea5a4]">CoSplitz</span> makes
+            <span className="font-semibold text-[gray-700]">CoSplitz</span> makes
             sharing easier for everyone. Whether you’re splitting a trip, a meal,
             or a deal — you belong here.
           </p>

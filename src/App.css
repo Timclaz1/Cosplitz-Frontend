@@ -1,27 +1,40 @@
-/* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+/* -----------------------------------------------------------
+   🌐 Import Google Font — Raleway
+   ----------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
-/* Global Reset */
-html{
+/* -----------------------------------------------------------
+   🧩 Global Reset
+   ----------------------------------------------------------- */
+html {
   scroll-behavior: smooth;
 }
 
-/* Base Body Styles */
+/* -----------------------------------------------------------
+   ✨ Base Body Styles
+   ----------------------------------------------------------- */
 body {
-  font-family: 'Jost';
+  font-family: 'Raleway', sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  background-color: #f9f9f9; /* optional, light background */
-  color: #222; /* default text color */
+  background-color: #f9f9f9; /* Light, neutral background */
+  color: #222; /* Default text color */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-html{
-  scroll-behavior: smooth;
+/* -----------------------------------------------------------
+   🎯 Accessibility & Focus States
+   ----------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid #6366f1; /* Indigo-500 */
+  outline-offset: 3px;
 }
 
-/* Hide scrollbar but allow scrolling */
+/* -----------------------------------------------------------
+   🚫 Hide Scrollbar but Keep Scrolling
+   ----------------------------------------------------------- */
 .no-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
@@ -30,3 +43,69 @@ html{
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;     /* Firefox */
 }
+
+/* -----------------------------------------------------------
+   💅 Smooth Element Transitions
+   ----------------------------------------------------------- */
+* {
+  transition:
+    background-color 0.2s ease-in-out,
+    color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+}
+
+/* -----------------------------------------------------------
+   ✨ Fade-In Page Transition Animation
+   ----------------------------------------------------------- */
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -----------------------------------------------------------
+   🕶️ Optional Dark Mode Support (Auto Detect)
+   ----------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #0f172a; /* Slate-900 */
+    color: #f3f4f6; /* Gray-100 */
+  }
+
+  :focus-visible {
+    outline-color: #818cf8; /* Softer Indigo */
+  }
+}
+
+/* -----------------------------------------------------------
+   🎨 Custom Scrollbar (Visible Mode)
+   Uncomment if you want a subtle visible scrollbar
+   ----------------------------------------------------------- */
+/*
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6366f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4f46e5;
+}
+*/

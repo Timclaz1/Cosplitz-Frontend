@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import Hero from "../assets/object.svg";
 
 export default function WaveBackground() {
+  // Initialize AOS
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // animation duration (in ms)
+      once: true,     // animate only once when scrolling down
+      offset: 100,    // offset (in px) from the original trigger point
+      easing: "ease-in-out",
+    });
+  }, []);
+
   return (
-    <div className="relative min-h-screen  w-full bg-gradient-to-b from-white to-green-50 flex items-center justify-center overflow-x-hidden overflow-y-hidden px-4 sm:px-6 md:px-8 lg:px-12">
+    <div className="relative min-h-screen w-full bg-gradient-to-b from-white to-green-50 flex items-center justify-center overflow-x-hidden overflow-y-hidden px-4 sm:px-6 md:px-8 lg:px-12">
       {/* ====== Main Content Section ====== */}
-      <div className="max-w-7xl w-full  flex flex-col-reverse md:flex-row items-center justify-between gap-10 md:gap-16 py-12 md:py-20">
+      <div className="max-w-7xl w-full flex flex-col-reverse md:flex-row items-center justify-between gap-10 md:gap-16 py-12 md:py-20 max-md:mt-10">
         
         {/* ====== Left Text Section ====== */}
-        <div className="w-full md:w-1/2 text-center md:text-left space-y-6">
+        <div
+          className="w-full md:w-1/2 text-center md:text-left space-y-6"
+          data-aos="fade-right"
+        >
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight break-words">
             Split Smarter,
             <br className="hidden md:block" />
@@ -22,7 +37,11 @@ export default function WaveBackground() {
             collaboration.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4 pt-4">
+          <div
+            className="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4 pt-4"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+          >
             <button className="w-full sm:w-auto px-8 py-3 bg-[#1F8225] text-white font-semibold rounded-lg shadow-md hover:bg-[#17661C] transition duration-300">
               Get Started
             </button>
@@ -33,7 +52,10 @@ export default function WaveBackground() {
         </div>
 
         {/* ====== Right Image Section ====== */}
-        <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+        <div
+          className="w-full md:w-1/2 flex justify-center md:justify-end"
+          data-aos="fade-left"
+        >
           <img
             src={Hero}
             alt="App illustration"

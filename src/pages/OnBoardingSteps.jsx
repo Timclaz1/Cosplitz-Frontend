@@ -198,17 +198,15 @@ export default function CoSplitzOnboarding() {
                     <button
                       key={option.id}
                       onClick={() => toggleSelection(option.id)}
-                      className={`p-3 sm:p-4 rounded-lg border-2 flex flex-col items-center justify-center transition-all duration-200 ${
-                        isSelected
-                          ? "border-green-600 bg-green-50"
-                          : "border-gray-200 bg-white hover:border-gray-300"
-                      }`}
+                      className={`p-3 sm:p-4 rounded-lg border-2 flex flex-col items-center justify-center transition-all duration-200 ${isSelected
+                        ? "border-green-600 bg-green-50"
+                        : "border-gray-200 bg-white hover:border-gray-300"
+                        }`}
                     >
                       <IconComponent IconType={option.icon} />
                       <span
-                        className={`mt-1 text-xs sm:text-sm font-medium ${
-                          isSelected ? "text-green-600" : "text-gray-700"
-                        }`}
+                        className={`mt-1 text-xs sm:text-sm font-medium ${isSelected ? "text-green-600" : "text-gray-700"
+                          }`}
                       >
                         {option.label}
                       </span>
@@ -236,17 +234,15 @@ export default function CoSplitzOnboarding() {
             <button
               onClick={handleContinue}
               disabled={!isStepComplete()}
-              className={`w-full py-3 rounded-lg font-medium text-sm sm:text-base transition-all duration-200 ${
-                isStepComplete()
-                  ? "bg-green-600 text-white hover:bg-green-700"
-                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
-              }`}
+              className={`w-full py-3 rounded-lg font-medium text-sm sm:text-base transition-all duration-200 ${isStepComplete()
+                ? "bg-green-600 text-white hover:bg-green-700"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
             >
               {currentStep === steps.length - 1
                 ? "Complete Setup"
-                : `Continue${
-                    selected.length > 0 ? ` (${selected.length})` : ""
-                  }`}
+                : `Continue${selected.length > 0 ? ` (${selected.length})` : ""
+                }`}
             </button>
 
             {currentStep === steps.length - 1 && isStepComplete() && (

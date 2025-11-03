@@ -1,45 +1,83 @@
-import React from "react";
-import Frame from "../assets/Frame.jpg";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import image1 from "../assets/Frame 37.svg";
+import image2 from "../assets/Frame 36.svg";
+import image3 from "../assets/Frame 35.svg";
+import image4 from "../assets/Frame 34.svg";
 
 export default function WhoSection() {
+  useEffect(() => {
+    AOS.init({
+      duration: 900,
+      once: true,
+      easing: "ease-in-out",
+      offset: 100,
+    });
+  }, []);
+
   return (
-    <section className="w-full flex flex-col justify-center items-center bg-white overflow-hidden">
+    <section
+      id="community"
+      className="w-full flex flex-col justify-center items-center bg-white overflow-hidden font-['Raleway']"
+    >
       {/* ===== Main Content Section ===== */}
-      <div className="max-w-7xl w-full flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16 py-20 px-6 md:px-12 lg:px-20">
+      <div className="max-w-7xl w-full flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16 py-20 md:py-24 px-4 sm:px-8 md:px-12 lg:px-16">
         {/* ===== Left Section ===== */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left">
-          <h2 className="text-4xl md:text-5xl lg:text-4xl font-extrabold text-gray-900 mb-6 underline underline-offset-8 decoration-[#000000]">
+        <div
+          className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left"
+          data-aos="fade-right"
+        >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 underline underline-offset-8 decoration-[#1F8225]">
             Who Can Use CoSplitz?
           </h2>
 
-          <p className="text-2xl md:text-3xl text-gray-700 leading-relaxed mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed">
             From students and travelers to families and small business owners,{" "}
-            <span className="font-semibold text-[gray-700]">CoSplitz</span> makes
+            <span className="font-semibold text-[#1F8225]">CoSplitz</span> makes
             sharing easier for everyone. Whether you’re splitting a trip, a meal,
             or a deal — you belong here.
           </p>
         </div>
 
-        {/* ===== Right Section ===== */}
-        <div className="w-full md:w-1/2 flex justify-center items-center">
-          <img
-            src={Frame}
-            alt="Who can use CoSplitz"
-            className="w-4/5 md:w-4/5 h-auto object-contain rounded-2xl shadow-lg transition-transform duration-500 hover:scale-105"
-          />
+        {/* ===== Right Section (Grid of Icons/Images) ===== */}
+        <div
+          className="w-full md:w-1/2 grid grid-cols-2 gap-4 sm:gap-6"
+          data-aos="fade-left"
+          data-aos-delay="150"
+        >
+          {[image1, image2, image3, image4].map((img, i) => (
+            <div
+              key={i}
+              className="flex justify-center items-center  p-4 rounded-2xl  hover:shadow-lg transition-all duration-300"
+            >
+              <img
+                src={img}
+                alt={`Who-section-icon-${i + 1}`}
+                className="w-3/4 h-auto object-contain"
+              />
+            </div>
+          ))}
         </div>
       </div>
 
       {/* ===== CTA Section ===== */}
-      <div className="w-full bg-[#DEF8D1] py-20 flex justify-center items-center px-6 md:px-10">
-        <div className="max-w-xl text-center flex flex-col items-center gap-6">
-          <h3 className="text-3xl md:text-4xl font-bold text-gray-900 underline underline-offset-8 decoration-[#000000]">
-            Ready to Splitz Smarter?
+      <div
+        className="w-full bg-[#DEF8D1] py-16 md:py-20 flex justify-center items-center px-4 sm:px-8 md:px-12"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <div className="max-w-7xl text-center flex flex-col items-center gap-6">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 underline underline-offset-8 decoration-[#1F8225]">
+            Ready to Split Smarter?
           </h3>
 
-          <p className="text-base md:text-2xl text-gray-700 leading-relaxed">
-            Join the <span className="font-semibold text-[#1F8225]">CoSplitz</span> community today and make shared payments effortless.
+          <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed">
+            Join the{" "}
+            <span className="font-semibold text-[#1F8225]">CoSplitz</span>{" "}
+            community today and make shared payments effortless.
           </p>
+          
 
           <button className="bg-[#1F8225] text-white font-semibold text-sm md:text-base px-10 py-4 rounded-full shadow-md hover:bg-[#176b1d] transition-all duration-300">
             JOIN NOW

@@ -1,5 +1,4 @@
 // src/App.jsx
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 // Public pages
@@ -13,22 +12,23 @@ import VerifyEmail from "./pages/VerifyEmail";
 import ConfirmPassword from "./pages/ConfirmPassword";
 import PasswordResetSuccess from "./pages/PasswordResetSuccess";
 import OnboardingSteps from "./pages/OnboardingSteps";
-import NotFound from "./pages/Notfound"; // Fixed: Added semicolon
+import NotFound from "./pages/NotFound"; // ✅ Fixed: Corrected case-sensitive file name
 
-// Dashboard pages
-import DashboardLayout from "./pages/Dashboard/DashboardLayout";
-import Overview from "./pages/Dashboard/Overview";
-import Analytics from "./pages/Dashboard/Analytics";
-import Settings from "./pages/Dashboard/Settings";
-import Payment from "./pages/Dashboard/Payment";
-import CreateSplitzPage from "./pages/Dashboard/CreateSplitz";
+// Dashboard layout and pages
+import DashboardLayout from "../src/components/Layout/DashboardLayout"; // ✅ Fixed path: should be under /layouts, not /pages/Dashboard
+import Overview from "../src/pages/Dashboard/DashHome";
+import Analytics from "../src/pages/Dashboard/Analytics";
+import Settings from "../src/pages/Dashboard/Settings";
+import Payment from "../src/pages/Dashboard/Payment";
+import CreateSplitzPage from "../src/pages/Dashboard/CreateSplitz";
+import Notification from "../src/pages/Dashboard/Notification";
 
 import "./App.css";
 
 export default function App() {
   return (
     <Routes>
-      {/* Public routes */}
+      {/* 🌍 Public Routes */}
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Register />} />
@@ -40,16 +40,17 @@ export default function App() {
       <Route path="/password-reset-success" element={<PasswordResetSuccess />} />
       <Route path="/onboarding-steps" element={<OnboardingSteps />} />
 
-      {/* Dashboard routes */}
+      {/* 🧭 Dashboard Routes */}
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<Overview />} />
         <Route path="analytics" element={<Analytics />} />
-        <Route path="create-split" element={<CreateSplitzPage />} /> {/* Fixed: Consistent naming */}
+        <Route path="create-split" element={<CreateSplitzPage />} /> {/* ✅ fixed route consistency */}
         <Route path="payment" element={<Payment />} />
+        <Route path="notification" element={<Notification/>}/>
         <Route path="settings" element={<Settings />} />
       </Route>
 
-      {/* 404 Catch-all route - MUST BE LAST */}
+      {/* 🚫 Catch-All (404) */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

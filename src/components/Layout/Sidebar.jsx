@@ -1,113 +1,128 @@
+// src/components/Layout/Sidebar.jsx
 import { NavLink } from "react-router-dom";
 import {
   Home,
+  Share2,
+  MessageSquare,
+  Wallet,
+  MapPin,
   BarChart3,
-  Settings,
-  Users,
-  Folder,
-  Bell,
-  HelpCircle,
-  LogOut,
   X,
 } from "lucide-react";
-import Logo from "../../assets/logo.svg";
+import SidebarLogo from "../../assets/logo.svg";
 
-export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
-  const mainNav = [
-    { to: "/dashboard", label: "Overview", icon: Home },
-    { to: "/dashboard/analytics", label: "Analytics", icon: BarChart3 },
-    { to: "/dashboard/projects", label: "Projects", icon: Folder },
-    { to: "/dashboard/team", label: "Team", icon: Users },
-  ];
+const Sidebar = ({ sidebarOpen, isMobile, setSidebarOpen }) => {
+  const handleOverlayClick = () => {
+    if (isMobile) setSidebarOpen(false);
+  };
 
-  const secondaryNav = [
-    { to: "/dashboard/notifications", label: "Notifications", icon: Bell },
-    { to: "/dashboard/support", label: "Support", icon: HelpCircle },
-    { to: "/dashboard/settings", label: "Settings", icon: Settings },
+  const navItems = [
+    { icon: Home, label: "Overview", url: "/dashboard" },
+    { icon: Share2, label: "My Splittz", url: "/dashboard/create-split", count: 3 },
+    { icon: MessageSquare, label: "Messages", url: "/dashboard/messages", count: 8 },
+    { icon: Wallet, label: "Wallet", url: "/dashboard/payment" },
+    { icon: MapPin, label: "Nearby", url: "/dashboard/nearby", count: 12 },
+    { icon: BarChart3, label: "Analytics", url: "/dashboard/analytics" },
   ];
 
   return (
-    <aside
-      className={`fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-lg border-r transform transition-transform duration-300 ease-in-out 
-      ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} 
-      md:translate-x-0 md:static`}
-    >
-      {/* Header */}
-      <div className="flex items-center justify-between p-5">
-        <img src={Logo} alt="App logo" className="h-8" />
-        <button
-          onClick={() => setSidebarOpen(false)}
-          className="md:hidden p-2 rounded-lg hover:bg-gray-100"
-        >
-          <X className="w-5 h-5 text-gray-700" />
-        </button>
-      </div>
+    <>
+      {/* Overlay for mobile */}
+      {sidebarOpen && isMobile && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+          onClick={handleOverlayClick}
+        />
+      )}
 
-      {/* Nav sections */}
-      <div className="flex flex-col justify-between h-full overflow-y-auto">
-        <nav className="flex flex-col p-4 space-y-6">
-          {/* MAIN */}
-          <div>
-            <p className="text-xs uppercase text-gray-400 font-semibold mb-2 px-2">
-              Main
-            </p>
-            <div className="space-y-1">
-              {mainNav.map(({ to, label, icon: Icon }) => (
-                <NavLink
-                  key={to}
-                  to={to}
-                  end
-                  className={({ isActive }) =>
-                    `flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? "bg-green-100 text-green-700 font-medium"
-                        : "text-gray-700 hover:bg-gray-100"
-                    }`
-                  }
-                  onClick={() => setSidebarOpen?.(false)}
-                >
-                  <Icon className="w-5 h-5 shrink-0" />
-                  <span>{label}</span>
-                </NavLink>
-              ))}
-            </div>
+      {/* Sidebar */}
+      <aside
+        className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200 transition-transform duration-300 z-50
+          ${isMobile ? "w-2/3" : "w-64"}
+          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+          lg:translate-x-0 lg:static lg:z-auto`}
+      >
+        <div className="p-4 lg:p-6 h-full flex flex-col relative">
+          {/* Close button (mobile only) */}
+          {isMobile && (
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="lg:hidden absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-lg"
+            >
+              <X size={20} />
+            </button>
+          )}
+
+          {/* Logo */}
+          <div className="flex items-center gap-2 mb-8">
+            <img src={SidebarLogo}/>
           </div>
 
-          {/* SETTINGS */}
-          <div>
-            <p className="text-xs uppercase text-gray-400 font-semibold mb-2 px-2">
-              More
-            </p>
-            <div className="space-y-1">
-              {secondaryNav.map(({ to, label, icon: Icon }) => (
-                <NavLink
-                  key={to}
-                  to={to}
-                  className={({ isActive }) =>
-                    `flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? "bg-green-100 text-green-700 font-medium"
-                        : "text-gray-700 hover:bg-gray-100"
-                    }`
-                  }
-                  onClick={() => setSidebarOpen?.(false)}
-                >
-                  <Icon className="w-5 h-5 shrink-0" />
-                  <span>{label}</span>
-                </NavLink>
+          {/* Navigation Links */}
+          <nav className="space-y-1 flex-1">
+            {navItems.map((item, i) => (
+              <NavLink
+                key={i}
+                to={item.url}
+                end
+                onClick={() => isMobile && setSidebarOpen(false)}
+                className={({ isActive }) =>
+                  `w-full flex items-center justify-between p-2 rounded-lg transition-colors text-sm ${
+                    isActive
+                      ? "bg-green-600 text-white"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <item.icon size={18} />
+                  <span className="font-medium">{item.label}</span>
+                </div>
+                {item.count && (
+                  <span className="text-xs bg-gray-200 px-2 py-0.5 rounded-full">
+                    {item.count}
+                  </span>
+                )}
+              </NavLink>
+            ))}
+          </nav>
+
+          {/* Community Bonding Card */}
+          <div className="mt-6 p-4 bg-gradient-to-br from-green-500 to-green-600 rounded-xl text-white">
+            <div className="flex items-center gap-1 mb-2">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="w-1 h-1 bg-white rounded-full" />
               ))}
             </div>
+            <h3 className="font-bold text-sm mb-1">Community Bonding</h3>
+            <p className="text-xs mb-1">Level 4</p>
+            <p className="text-xs mb-2">23 completed split</p>
+            <div className="w-full h-1 bg-green-700 rounded-full overflow-hidden">
+              <div className="h-full w-3/4 bg-white" />
+            </div>
+            <p className="text-xs mt-2">Reliability Score: 87%</p>
           </div>
-        </nav>
 
-        {/* Logout */}
-        <div className="border-t p-4">
-          <button className="flex items-center space-x-3 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 transition-all w-full">
-            <LogOut className="w-5 h-5" />
-            <span>Logout</span>
+          {/* Profile */}
+          <button className="w-full mt-6 flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg">
+            <img
+              src="https://api.dicebear.com/7.x/avataaars/svg?seed=alice"
+              alt="Profile"
+              className="w-10 h-10 rounded-full"
+            />
+            <div className="text-left">
+              <p className="text-sm font-semibold text-gray-900 truncate">
+                Alice Badmus
+              </p>
+              <p className="text-xs text-gray-500 truncate">
+                View Profile & Settings
+              </p>
+            </div>
           </button>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
-}
+};
+
+export default Sidebar;

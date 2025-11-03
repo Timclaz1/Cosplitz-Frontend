@@ -1,3 +1,4 @@
+// src/components/Navbar/Navbar.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import NavbarLogo from "../../assets/logo.svg";
@@ -17,14 +18,14 @@ export default function Navbar() {
 
   const toggleMenu = () => setMenu((prev) => !prev);
 
-  // Close on Escape
+  // Close on Escape key
   useEffect(() => {
     const handleEsc = (e) => e.key === "Escape" && setMenu(false);
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
-  // Navbar scroll shadow
+  // Navbar shadow on scroll
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
@@ -36,23 +37,23 @@ export default function Navbar() {
     document.body.style.overflow = menu ? "hidden" : "auto";
   }, [menu]);
 
-  // Smooth scroll to section
+  // Smooth scroll or redirect to home sections
   const handleNavClick = (id) => {
     setMenu(false);
     if (location.pathname !== "/") {
       window.location.href = `/#${id}`;
     } else {
       const section = document.getElementById(id);
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
-      }
+      if (section) section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
     <header
       className={`fixed top-0 left-0 w-full z-[9999] transition-all duration-300 ${
-        isScrolled ? "bg-[#F7F5F9]/95 shadow-md backdrop-blur-sm" : "bg-[#F7F5F9]"
+        isScrolled
+          ? "bg-[#F7F5F9]/95 shadow-md backdrop-blur-sm"
+          : "bg-[#F7F5F9]"
       }`}
     >
       {/* Navbar Container */}
@@ -109,68 +110,60 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Overlay */}
+      {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black transition-opacity duration-300 ${
-          menu ? "opacity-50 pointer-events-auto" : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 bg-black/50 transition-opacity duration-500 ${
+          menu ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setMenu(false)}
       />
 
-      {/* Mobile Drawer */}
-      <aside
-        className={`fixed top-0 right-0 z-[10000] h-full bg-white shadow-xl transform transition-transform duration-300 ease-out ${
+      {/* Mobile Menu Drawer */}
+      <div
+        className={`fixed top-0 right-0 h-full w-72 sm:w-80 bg-white shadow-2xl transform transition-transform duration-1000 ease-in-out z-[10000] ${
           menu ? "translate-x-0" : "translate-x-full"
-        } w-[75vw] max-w-[360px] md:hidden rounded-l-2xl overflow-y-auto`}
+        }`}
       >
-        {/* Drawer Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b">
-          <h3 className="text-lg font-semibold text-gray-800">Menu</h3>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+          <img src={NavbarLogo} alt="CoSplitz" className="h-8" />
           <button
-            onClick={() => setMenu(false)}
+            onClick={toggleMenu}
             aria-label="Close menu"
-            className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            className="p-2 rounded-md hover:bg-gray-100 focus:outline-none"
           >
-            <X size={22} />
+            <X size={24} />
           </button>
         </div>
 
-        {/* Drawer Nav */}
-        <nav className="px-5 py-6">
-          <ul className="flex flex-col gap-4">
-            {navItems.map((item) => (
-              <li key={item.to}>
-                <button
-                  onClick={() => handleNavClick(item.to)}
-                  className="block w-full text-left text-gray-800 hover:text-[#1f8225] transition-colors text-lg font-medium py-3 px-3 rounded-lg"
-                >
-                  {item.title}
-                </button>
-              </li>
-            ))}
-          </ul>
-
-          {/* Auth Buttons */}
-          <div className="mt-6 flex flex-col gap-3 px-3">
-            <Link
-              to="/signup"
-              className="w-full px-4 py-3 rounded-lg border-2 border-green-600 bg-white text-green-600 hover:bg-green-50 transition-colors font-medium text-center"
+        <nav className="flex flex-col px-6 py-6 space-y-5">
+          {navItems.map((item) => (
+            <button
+              key={item.to}
+              onClick={() => handleNavClick(item.to)}
+              className="text-lg font-medium text-gray-700 hover:text-green-600 transition-colors text-left"
             >
-              SIGN UP
-            </Link>
-            <Link
-              to="/login"
-              className="w-full px-4 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white transition-colors font-medium text-center"
-            >
-              LOG IN
-            </Link>
-          </div>
-
-          <div className="mt-8 px-3 text-sm text-gray-500 text-center">
-            <p>© {new Date().getFullYear()} CoSplitz</p>
-          </div>
+              {item.title}
+            </button>
+          ))}
         </nav>
-      </aside>
+
+        <div className="mt-8 px-6 flex flex-col gap-4">
+          <Link
+            to="/signup"
+            onClick={() => setMenu(false)}
+            className="w-full text-center px-5 py-3 rounded-lg border-2 border-green-600 bg-white text-green-600 hover:bg-green-50 font-medium"
+          >
+            SIGN UP
+          </Link>
+          <Link
+            to="/login"
+            onClick={() => setMenu(false)}
+            className="w-full text-center px-5 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium"
+          >
+            LOG IN
+          </Link>
+        </div>
+      </div>
     </header>
   );
 }

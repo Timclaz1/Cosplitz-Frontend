@@ -48,84 +48,8 @@ const CreateSplitzPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      <aside className={`fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-200 transition-transform duration-300 z-50 ${!sidebarOpen && '-translate-x-full'}`}>
-        <div className="p-6">
-          <div className="flex items-center gap-2 mb-8">
-            <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-sm">C</div>
-            <span className="text-xl font-bold text-gray-900">COSPLITZ</span>
-          </div>
-
-          <nav className="space-y-3">
-            {[
-              { icon: Home, label: 'Home', active: false },
-              { icon: Share2, label: 'My Splittz', count: 3, active: false },
-              { icon: MessageSquare, label: 'Messages', count: 8, active: false },
-              { icon: Wallet, label: 'Wallet', active: false },
-              { icon: MapPin, label: 'Nearby', count: 12, active: false },
-              { icon: BarChart3, label: 'Analytics', active: false },
-            ].map((item, i) => (
-              <button key={i} className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors ${item.active ? 'bg-green-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`}>
-                <div className="flex items-center gap-3">
-                  <item.icon size={20} />
-                  <span className="text-sm font-medium">{item.label}</span>
-                </div>
-                {item.count && <span className="text-xs bg-gray-300 px-2 py-1 rounded">{item.count}</span>}
-              </button>
-            ))}
-          </nav>
-
-          <div className="mt-8 p-4 bg-gradient-to-br from-green-500 to-green-600 rounded-xl text-white">
-            <div className="flex items-center gap-1 mb-2">
-              {[...Array(5)].map((_, i) => <div key={i} className="w-1 h-1 bg-white rounded-full" />)}
-            </div>
-            <h3 className="font-bold text-sm mb-1">Community Standing</h3>
-            <p className="text-xs mb-1">Level 4</p>
-            <p className="text-xs mb-3">23 completed split</p>
-            <div className="w-full h-1 bg-green-700 rounded-full overflow-hidden">
-              <div className="h-full w-3/4 bg-white" />
-            </div>
-            <p className="text-xs mt-2">Reliability Score: 87%</p>
-          </div>
-
-          <button className="w-full mt-6 flex items-center gap-3 p-3">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=alice" alt="Profile" className="w-10 h-10 rounded-full" />
-            <div className="text-left">
-              <p className="text-sm font-semibold text-gray-900">Alice Badmus</p>
-              <p className="text-xs text-gray-500">View Profiles & Settings</p>
-            </div>
-          </button>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <div className={`transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
-        {/* Top Navigation */}
-        <header className="sticky top-0 bg-white border-b border-gray-200 z-40">
-          <div className="px-6 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-4 flex-1">
-              <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden p-2 hover:bg-gray-100 rounded-lg">
-                {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-              <div className="flex-1 max-w-md">
-                <input type="text" placeholder="Find splittz nearby: Taxi, Groceries, Tools..." className="w-full px-4 py-2 bg-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500" />
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <button className="p-2 hover:bg-gray-100 rounded-lg">
-                <Bell size={20} />
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg">
-                <Settings size={20} />
-              </button>
-            </div>
-          </div>
-          <div className="px-6 py-2 text-sm text-gray-600">Ikeja Lagos, Nigeria</div>
-        </header>
-
-        {/* Main Form Content */}
-        <main className="p-6 max-w-3xl mx-auto">
+    <div className="min-h-screen ">
+        <main className="p-6 max-w-7xl mx-auto">
           <div className="mb-8">
             <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium mb-4">
               <ChevronLeft size={20} />
@@ -395,7 +319,6 @@ const CreateSplitzPage = () => {
             </button>
           </div>
         </main>
-      </div>
     </div>
   );
 };

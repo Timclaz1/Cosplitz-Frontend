@@ -5,7 +5,8 @@ import logo from "../assets/logo.svg";
 import { FcGoogle } from "react-icons/fc";
 import { PiAppleLogoBold } from "react-icons/pi";
 import Checknow from "../assets/Check.svg";
-import Link from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 // ✅ Timer countdown component for OTP
 function TimerDisplay() {
@@ -402,7 +403,7 @@ export default function Login() {
                   {/* Footer */}
                   <p className="text-center text-sm text-gray-600">
                     Already have an account?{" "}
-                    <Link href="/login" className="text-green-600 hover:underline font-medium">
+                    <Link to="/login" className="text-green-600 hover:underline font-medium">
                       Log In
                     </Link>
                   </p>
